@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "354790368275",
+    "project_id": "react-native-firebase-7cf24",
+    "storage_bucket": "react-native-firebase-7cf24.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:354790368275:android:8658d38dd261b878e74be6",
+        "android_client_info": {
+          "package_name": "com.gelirgider"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "354790368275-io1sqk2cenootuu6ni4bovm2o8119kkc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJB-EiQMwLJVwKX4ba0thiWRUOzSp2eBM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "354790368275-io1sqk2cenootuu6ni4bovm2o8119kkc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
