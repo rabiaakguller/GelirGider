@@ -4,10 +4,12 @@ import { View, Text, Button,TouchableOpacity,Image, StyleSheet} from 'react-nati
 import FormInput from '../Forms/FormInput';
 import FormButton from '../Forms/FormButton';
 import SocialButton from '../Forms/SocialButton';
+import {AuthContext} from '../navigation/AuthProvider';
 
 const LoginScreen = ({navigation}) => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+    const {login} = useContext(AuthContext);
 
     return(
         <View style = {styles.container}>
@@ -37,7 +39,7 @@ const LoginScreen = ({navigation}) => {
 
         <FormButton
         buttonTitle="Giriş Yap"
-        onPress={() => alert('KULLANICI GIRISI YAPILDI')}
+        onPress={() => login(email,password)}
         />
 
         <TouchableOpacity style={styles.forgotButton} onPress={() => {}}>

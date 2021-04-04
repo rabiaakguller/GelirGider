@@ -1,5 +1,5 @@
 import { Form } from 'native-base';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect,useContext, useState} from 'react';
 import {View, ScrollView,
   Text,
   StyleSheet,
@@ -14,19 +14,20 @@ import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
 import {Container} from '../styles/FeedStyles';*/
 import FormButton from '../Forms/FormButton';
+import {AuthContext} from '../navigation/AuthProvider';
 
-const HomeScreen = () => {
-  
+const HomeScreen1 = () => {
+  const {user, logout} = useContext(AuthContext);
   return (
     <View style={styles.container}>
-        <Text style={styles.text}>Hoşgeldiniz</Text>
+        <Text style={styles.text}>Hoşgeldiniz </Text>
         <FormButton buttonTitle='Çıkış Yap'
-        onPress={() => {}} />
+        onPress={() => logout()} />
     </View>
   );
-};
+}
 
-export default HomeScreen;
+export default HomeScreen1;
 
 const styles = StyleSheet.create({
 container: {
