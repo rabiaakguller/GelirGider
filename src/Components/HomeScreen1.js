@@ -17,7 +17,7 @@ import { VictoryPie } from 'victory-native';
 
 import {Svg} from 'react-native-svg';
 
-import { COLORS, FONTS, SIZES, icons, images } from '../constants';
+import { COLORS, FONTS, SIZES, icons, images } from '../../constants';
 
 const Home = () => {
 
