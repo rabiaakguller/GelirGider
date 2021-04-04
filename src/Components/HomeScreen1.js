@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext, useEffect } from "react";
 import {
     SafeAreaView,
     StyleSheet,
@@ -13,17 +13,24 @@ import {
     Animated,
     Platform
 } from 'react-native';
+
+import { LogBox } from 'react-native';
 import { VictoryPie } from 'victory-native';
 
 import {Svg} from 'react-native-svg';
 
 import { COLORS, FONTS, SIZES, icons, images } from '../../constants';
 
+import {AuthContext} from '../navigation/AuthProvider';
 const Home = () => {
 
     // dummy data
     const confirmStatus = "C"
     const pendingStatus = "P"
+    
+    useEffect(() => {
+        LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+    }, [])
 
     let categoriesData = [
         {
@@ -228,13 +235,14 @@ const Home = () => {
     const [viewMode, setViewMode] = React.useState("chart")
     const [selectedCategory, setSelectedCategory] = React.useState(null)
     const [showMoreToggle, setShowMoreToggle] = React.useState(false)
+    const {logout} = useContext(AuthContext);
 
     function renderNavBar() {
         return (
             <View
                 style={{
                     flexDirection: 'row',
-                    height: 80,
+                    height: 50,
                     justifyContent: 'space-between',
                     alignItems: 'flex-end',
                     paddingHorizontal: SIZES.padding,
@@ -257,7 +265,7 @@ const Home = () => {
 
                 <TouchableOpacity
                     style={{ justifyContent: 'center', alignItems: 'flex-end', width: 50 }}
-                    onPress={() => console.log('More')}
+                    onPress={() => logout()}
                 >
                     <Image
                         source={icons.more}
