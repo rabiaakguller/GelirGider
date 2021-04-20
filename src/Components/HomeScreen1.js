@@ -35,7 +35,7 @@ const Home = () => {
     let categoriesData = [
         {
             id: 1,
-            name: "Education",
+            name: "Eğitim",
             icon: icons.education,
             color: COLORS.yellow,
             expenses: [
@@ -75,7 +75,7 @@ const Home = () => {
         },
         {
             id: 2,
-            name: "Nutrition",
+            name: "Gıda",
             icon: icons.food,
             color: COLORS.lightBlue,
             expenses: [
@@ -141,7 +141,7 @@ const Home = () => {
         },
         {
             id: 4,
-            name: "Beauty & Care",
+            name: "Kişisel Bakım",
             icon: icons.healthcare,
             color: COLORS.peach,
             expenses: [
@@ -181,7 +181,7 @@ const Home = () => {
         },
         {
             id: 5,
-            name: "Sports",
+            name: "Spor",
             icon: icons.sports_icon,
             color: COLORS.purple,
             expenses: [
@@ -205,7 +205,7 @@ const Home = () => {
         },
         {
             id: 6,
-            name: "Clothing",
+            name: "Kıyafet",
             icon: icons.cloth_icon,
             color: COLORS.red,
             expenses: [
@@ -249,10 +249,12 @@ const Home = () => {
                     backgroundColor: COLORS.white,
                 }}
             >
+                
                 <TouchableOpacity
                     style={{ justifyContent: 'center', width: 50, }}
                     onPress={() => console.log('Go Back')}
                 >
+
                     <Image
                         source={icons.back_arrow}
                         style={{
@@ -263,6 +265,10 @@ const Home = () => {
                     />
                 </TouchableOpacity>
 
+                
+                    <Text style={{ color: COLORS.primary, ...FONTS.h2 }}>My Expenses</Text>
+         
+                  
                 <TouchableOpacity
                     style={{ justifyContent: 'center', alignItems: 'flex-end', width: 50 }}
                     onPress={() => logout()}
@@ -276,44 +282,16 @@ const Home = () => {
                         }}
                     />
                 </TouchableOpacity>
+
             </View>
+
+            
         )
     }
 
+    
     function renderHeader() {
-        return (
-            <View style={{ paddingHorizontal: SIZES.padding, paddingVertical: SIZES.padding, backgroundColor: COLORS.white }}>
-                <View>
-                    <Text style={{ color: COLORS.primary, ...FONTS.h2 }}>My Expenses</Text>
-                    <Text style={{ ...FONTS.h3, color: COLORS.darkgray }}>Summary (private)</Text>
-                </View>
-
-                <View style={{ flexDirection: 'row', marginTop: SIZES.padding, alignItems: 'center' }}>
-                    <View style={{
-                        backgroundColor: COLORS.lightGray,
-                        height: 50,
-                        width: 50,
-                        borderRadius: 25,
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                    }}>
-                        <Image
-                            source={icons.calendar}
-                            style={{
-                                width: 20,
-                                height: 20,
-                                tintColor: COLORS.lightBlue
-                            }}
-                        />
-                    </View>
-
-                    <View style={{ marginLeft: SIZES.padding }}>
-                        <Text style={{ color: COLORS.primary, ...FONTS.h3 }}>11 Nov, 2020</Text>
-                        <Text style={{ ...FONTS.body3, color: COLORS.darkgray }}>18% more than last month</Text>
-                    </View>
-                </View>
-            </View>
-        )
+      
     }
 
     function renderCategoryHeaderSection() {
@@ -325,8 +303,23 @@ const Home = () => {
                     <Text style={{ color: COLORS.darkgray, ...FONTS.body4 }}>{categories.length} Total</Text>
                 </View>
 
+            
+
                 {/* Button */}
-                <View style={{ flexDirection: 'row' }}>
+                <View style={{ flexDirection: 'row' }}>        
+                <TouchableOpacity
+                    style={{
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: viewMode == "chart" ? COLORS.red : COLORS.red,
+                        height: 50,
+                        width: 120,
+                        borderRadius: 25
+                    }}
+                    onPress={() => setViewMode("chart")}
+                     >
+                          <Text>Gider Ekle</Text>
+                     </TouchableOpacity>          
                     <TouchableOpacity
                         style={{
                             alignItems: 'center',
@@ -348,6 +341,9 @@ const Home = () => {
                             }}
                         />
                     </TouchableOpacity>
+
+                    
+
 
                     <TouchableOpacity
                         style={{
@@ -772,7 +768,9 @@ const Home = () => {
             {/* Category Header Section */}
             {renderCategoryHeaderSection()}
 
-            <ScrollView contentContainerStyle={{ paddingBottom: 60 }}>
+            <ScrollView style={{ backgroundColor: 'whitesmoke', marginHorizontal:
+20 }} showsVerticalScrollIndicator={false}>
+           
                 {
                     viewMode == "list" &&
                     <View>
