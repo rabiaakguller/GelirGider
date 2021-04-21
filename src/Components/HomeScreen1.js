@@ -1,4 +1,5 @@
 import React, { useRef, useContext, useEffect } from "react";
+import Dialog from "react-native-dialog";
 import {
     SafeAreaView,
     StyleSheet,
@@ -11,7 +12,8 @@ import {
     TouchableOpacity,
     FlatList,
     Animated,
-    Platform
+    Platform,
+    Button
 } from 'react-native';
 
 import { LogBox } from 'react-native';
@@ -27,7 +29,25 @@ const Home = () => {
     // dummy data
     const confirmStatus = "C"
     const pendingStatus = "P"
-    
+
+    const [visible, setVisible] = React.useState(false);
+    const [text, onChangeText] = React.useState("Useless Text");
+    const [number, onChangeNumber] = React.useState(null);
+
+    const showDialog = () => {
+      setVisible(true);
+    };
+  
+    const handleCancel = () => {
+      setVisible(false);
+    };
+  
+    const handleDelete = () => {
+      // The user has pressed the "Delete" button, so here you can do your own logic.
+      // ...Your logic
+      setVisible(false);
+    };
+
     useEffect(() => {
         LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
     }, [])
@@ -226,6 +246,54 @@ const Home = () => {
                     status: confirmStatus,
                 },
             ],
+        },
+        {
+            id: 7,
+            name: "Pazar",
+            icon: icons.chart,
+            color: COLORS.purple,
+            expenses: [{
+                    id: 19,
+                    title: "Patlıcan",
+                    description: "Patlıcan",
+                    location: "Eryaman",
+                    total: 5.00,
+                    status: confirmStatus,
+                },
+                {
+                    id: 20,
+                    title: "Kabak",
+                    description: "Kabak",
+                    location: "Eryaman",
+                    total: 6.00,
+                    status: confirmStatus,
+                },
+            ],
+        },
+        {
+            id: 8,
+            name: "Hobi",
+            icon: icons.chart,
+            color: COLORS.black,
+            expenses: [
+                {
+                    id: 21,
+                    title: "Boyama",
+                    description: "Boyama",
+                    location: "Çankaya",
+                    total: 15.00,
+                    status: confirmStatus,
+                },
+                {
+                    id: 22,
+                    title: "Dans",
+                    description: "Dans",
+                    location: "Koru",
+                    total: 60.00,
+                    status: confirmStatus,
+                },
+
+            ],
         }
     ]
 
@@ -236,7 +304,7 @@ const Home = () => {
     const [selectedCategory, setSelectedCategory] = React.useState(null)
     const [showMoreToggle, setShowMoreToggle] = React.useState(false)
     const {logout} = useContext(AuthContext);
-
+ 
     function renderNavBar() {
         return (
             <View
@@ -311,7 +379,7 @@ const Home = () => {
                     style={{
                         alignItems: 'center',
                         justifyContent: 'center',
-                        backgroundColor: viewMode == "Ekle" ? COLORS.red : COLORS.red,
+                        backgroundColor: viewMode == "Ekle" ? COLORS.yellow : COLORS.yellow,
                         height: 50,
                         width: 120,
                         borderRadius: 25
@@ -713,108 +781,59 @@ const Home = () => {
 
     function renderEkle() {
 
-        let EkleData = processCategoryDataToDisplay()
-        let colorScales = EkleData.map((item) => item.color)
-        let totalExpenseCount = EkleData.reduce((a, b) => a + (b.expenseCount || 0), 0)
+        const renderItem = ({ item }) => (
+            <TouchableOpacity
+                onPress={() => setSelectedCategory(item)}
+                style={{
+                    flex: 1,
+                    flexDirection: 'row',
+                    margin: 5,
+                    paddingVertical: 20,
+                    paddingHorizontal: SIZES.padding,
+                    borderRadius: 5,
+                    backgroundColor: COLORS.white,
+                    ...styles.shadow
+                }}
+            >
+                <Image
+                    source={item.icon}
+                    style={{
+                        width: 20,
+                        height: 20,
+                        tintColor: item.color
+                    }}
+                />
+                <Text style={{ marginLeft: SIZES.base, color: COLORS.primary, ...FONTS.h4 }}>{item.name}</Text>
+            </TouchableOpacity>
+        )
 
-        console.log("Check Ekle")
-        console.log(EkleData)
-
-        if(Platform.OS == 'ios')
-        {
-            return (
-                <View  style={{ alignItems: 'center', justifyContent: 'center' }}>
-                    <VictoryPie
-                        
-                        data={EkleData}
-                        labels={(datum) => `${datum.y}`}
-                        radius={({ datum }) => (selectedCategory && selectedCategory.name == datum.name) ? SIZES.width * 0.4 : SIZES.width * 0.4 - 10}
-                        innerRadius={70}
-                        labelRadius={({ innerRadius }) => (SIZES.width * 0.4 + innerRadius) / 2.5}
-                        style={{
-                            labels: { fill: "black", ...FONTS.body2 },
-                            parent: {
-                                ...styles.shadow
-                            },
-                        }}
-                        width={SIZES.width * 0.8}
-                        height={SIZES.width * 0.8}
-                        colorScale={colorScales}
-                        events={[{
-                            target: "data",
-                            eventHandlers: {
-                                onPress: () => {
-                                    
-                                    return [{
-                                        
-                                        target: "labels",
-                                        mutation: (props) => {
-                                            let categoryName = EkleData[props.index].name
-                                            setSelectCategoryByName(categoryName)
-                                        }
-                                    }]
-                                }
-                            }
-                        }]}
-    
+        return (
+            <View style={{ paddingHorizontal: SIZES.padding - 50 }}>
+                    <FlatList
+                        data={categories}
+                        renderItem={renderItem}
+                        keyExtractor={item => `${item.id}`}
+                        numColumns={2}
                     />
-    
-                    <View style={{ position: 'absolute', top: '42%', left: "42%" }}>
-                        <Text style={{ ...FONTS.h1, textAlign: 'center' }}>{totalExpenseCount}</Text>
-                        <Text style={{ ...FONTS.body3, textAlign: 'center' }}>Expenseeeeeees</Text>
-                    </View>
-                </View>
-    
-            )
-        }
-        else
-        {
-            // Android workaround by wrapping VictoryPie with SVG
-            return (
-                <View  style={{ alignItems: 'center', justifyContent: 'center' }}>
-                    <Svg width={SIZES.width} height={SIZES.width} style={{width: "100%", height: "auto"}}>
-                    <Text>dd</Text>
-                        <VictoryPie
-                            standalone={false} // Android workaround
-                            data={EkleData}
-                            labels={(datum) => `${datum.y}`}
-                            radius={({ datum }) => (selectedCategory && selectedCategory.name == datum.name) ? SIZES.width * 0.4 : SIZES.width * 0.4 - 10}
-                            innerRadius={70}
-                            labelRadius={({ innerRadius }) => (SIZES.width * 0.4 + innerRadius) / 2.5}
-                            style={{
-                                labels: { fill: "white", ...FONTS.body2 },
-                                parent: {
-                                    ...styles.shadow
-                                },
-                            }}
-                            width={SIZES.width}
-                            height={SIZES.width}
-                            colorScale={colorScales}
-                            events={[{
-                                target: "data",
-                                eventHandlers: {
-                                    onPress: () => {
-                                        return [{
-                                            target: "labels",
-                                            mutation: (props) => {
-                                                let categoryName = EkleData[props.index].name
-                                                setSelectCategoryByName(categoryName)
-                                            }
-                                        }]
-                                    }
-                                }
-                            }]}
-        
-                        />
-                    </Svg>
-                    <View style={{ position: 'absolute', top: '42%', left: "42%" }}>
-                        <Text style={{ ...FONTS.h1, textAlign: 'center' }}>{totalExpenseCount}</Text>
-                        <Text style={{ ...FONTS.body3, textAlign: 'center' }}>Expeeeeenses</Text>
-                    </View>
-                </View>
-            )
-        }
-        
+                    
+                    <Button title="Gider Ekle" onPress={showDialog} />
+                    <Dialog.Container visible={visible}>
+                        <Dialog.Title>Gider Ekle</Dialog.Title>
+                        <Dialog.Description>
+                            Eklemek istediğin kategoriyi seçip miktarı yazın
+                        </Dialog.Description>
+                        <Dialog.Input
+                            placeholder="...."
+                            keyboardType="numeric"
+                            style={styles.input}
+                            onChangeText={onChangeNumber}
+                            value={number}>
+                        </Dialog.Input>
+                        <Dialog.Button label="İptal" onPress={handleCancel} />
+                        <Dialog.Button label="Ekle" onPress={handleDelete} />
+                    </Dialog.Container>
+            </View>
+        )
     }
 
     function renderExpenseSummary() {
@@ -917,6 +936,17 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 3,
+    },
+    container: {
+        flex: 1,
+        backgroundColor: "#fff",
+        alignItems: "center",
+        justifyContent: "center",
+      },
+    input: {
+        height: 40,
+        margin: 12,
+        borderWidth: 1,
     }
 })
 
