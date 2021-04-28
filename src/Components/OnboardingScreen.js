@@ -11,14 +11,14 @@ const OnboardingScreen = ({navigation}) => {
         {
           backgroundColor: '#a6e4d0',
           image: <Image source={require('../images/image3.png')} />,
-          title: 'Onboarding 1',
-          subtitle: 'Done with React Native Onboarding Swiper',
+          title: 'HOŞGELDİN..',
+          subtitle: 'Kişisel Gelir-Gider Asistanın Hizmetinde',
         },
         {
           backgroundColor: '#fdeb93',
           image: <Image source={require('../images/image4.png')} />,
-          title: 'Onboarding 2',
-          subtitle: 'Done with React Native Onboarding Swiper',
+          title: 'Hazırsan Başlayalım...',
+          subtitle: 'İstediğin Kategoriye Gelirlerini veya Giderlerini Ekleyebilirsin',
         }
       ]}
     />

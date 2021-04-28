@@ -31,10 +31,11 @@ const Home = () => {
     const pendingStatus = "P"
 
     const [visible, setVisible] = React.useState(false);
+    const [visibleG, setVisibleG] = React.useState(false);
     const [text, onChangeText] = React.useState("Useless Text");
     const [number, onChangeNumber] = React.useState(null);
 
-    const showDialog = () => {
+    const showDialog = ({ item }) => {
       setVisible(true);
     };
   
@@ -47,6 +48,20 @@ const Home = () => {
       // ...Your logic
       setVisible(false);
     };
+
+    const showDialogG = ({ item }) => {
+        setVisibleG(true);
+      };
+    
+      const handleCancelG = () => {
+        setVisibleG(false);
+      };
+    
+      const handleDeleteG = () => {
+        // The user has pressed the "Delete" button, so here you can do your own logic.
+        // ...Your logic
+        setVisibleG(false);
+      };
 
     useEffect(() => {
         LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
@@ -121,7 +136,7 @@ const Home = () => {
         },
         {
             id: 3,
-            name: "Child",
+            name: "Çocuk",
             icon: icons.baby_car,
             color: COLORS.darkgreen,
             expenses: [
@@ -135,10 +150,10 @@ const Home = () => {
                 },
                 {
                     id: 8,
-                    title: "Baby Car Seat",
-                    description: "Baby Car Seat",
+                    title: "Bebek Bezi",
+                    description: "Bebek Bezi",
                     location: "ByProgrammers' Baby Care Store",
-                    total: 100.00,
+                    total: 80.00,
                     status: pendingStatus,
                 },
                 {
@@ -167,10 +182,10 @@ const Home = () => {
             expenses: [
                 {
                     id: 11,
-                    title: "Skin Care product",
-                    description: "skin care",
+                    title: "Yüz Temizleme Jeli",
+                    description: "Cilt Sağlığı",
                     location: "ByProgrammers' Pharmacy",
-                    total: 10.00,
+                    total: 130.00,
                     status: pendingStatus,
                 },
                 {
@@ -297,7 +312,7 @@ const Home = () => {
         }
     ]
 
-    const categoryListHeightAnimationValue = useRef(new Animated.Value(115)).current;
+    const categoryListHeightAnimationValue = useRef(new Animated.Value(170)).current;
 
     const [categories, setCategories] = React.useState(categoriesData)
     const [viewMode, setViewMode] = React.useState("chart")
@@ -334,7 +349,7 @@ const Home = () => {
                 </TouchableOpacity>
 
                 
-                    <Text style={{ color: COLORS.primary, ...FONTS.h2 }}>My Expenses</Text>
+                    <Text style={{ color: COLORS.primary, ...FONTS.h2 }}>Giderler</Text>
          
                   
                 <TouchableOpacity
@@ -367,8 +382,8 @@ const Home = () => {
             <View style={{ flexDirection: 'row', padding: SIZES.padding, justifyContent: 'space-between', alignItems: 'center' }}>
                 {/* Title */}
                 <View>
-                    <Text style={{ color: COLORS.primary, ...FONTS.h3 }}>CATEGORIES</Text>
-                    <Text style={{ color: COLORS.darkgray, ...FONTS.body4 }}>{categories.length} Total</Text>
+                    <Text style={{ color: COLORS.primary, ...FONTS.h3 }}>KATEGORİLER</Text>
+                    <Text style={{ color: COLORS.darkgray, ...FONTS.body4 }}>Toplam : {categories.length}</Text>
                 </View>
 
             
@@ -449,7 +464,7 @@ const Home = () => {
                     flex: 1,
                     flexDirection: 'row',
                     margin: 5,
-                    paddingVertical: SIZES.radius,
+                    paddingVertical: 6,
                     paddingHorizontal: SIZES.padding,
                     borderRadius: 5,
                     backgroundColor: COLORS.white,
@@ -482,32 +497,17 @@ const Home = () => {
                 <TouchableOpacity
                     style={{
                         flexDirection: 'row',
-                        marginVertical: SIZES.base,
+                        marginVertical: SIZES.base + 10,
                         justifyContent: 'center'
                     }}
                     onPress={() => {
-                        if (showMoreToggle) {
-                            Animated.timing(categoryListHeightAnimationValue, {
-                                toValue: 115,
-                                duration: 500,
-                                useNativeDriver: false
-                            }).start()
-                        } else {
                             Animated.timing(categoryListHeightAnimationValue, {
                                 toValue: 172.5,
                                 duration: 500,
                                 useNativeDriver: false
                             }).start()
-                        }
-
-                        setShowMoreToggle(!showMoreToggle)
                     }}
                 >
-                    <Text style={{ ...FONTS.body4 }}>{showMoreToggle ? "LESS" : "MORE"}</Text>
-                    <Image
-                        source={showMoreToggle ? icons.up_arrow : icons.down_arrow}
-                        style={{ marginLeft: 5, width: 15, height: 15, alignSelf: 'center' }}
-                    />
                 </TouchableOpacity>
             </View>
         )
@@ -515,10 +515,9 @@ const Home = () => {
 
     function renderIncomingExpensesTitle() {
         return (
-            <View style={{ height: 80, backgroundColor: COLORS.lightGray2, padding: SIZES.padding }}>
+            <View style={{ height: 30, backgroundColor: COLORS.lightGray2, padding: SIZES.padding - 30 }}>
                 {/* Title */}
-                <Text style={{ ...FONTS.h3, color: COLORS.primary }}>INCOMING EXPENSES</Text>
-                <Text style={{ ...FONTS.body4, color: COLORS.darkgray }}>12 Total</Text>
+                <Text style={{ ...FONTS.h2, color: COLORS.primary }}>Harcama Detayları</Text>
             </View>
         )
     }
@@ -570,21 +569,6 @@ const Home = () => {
                     <Text style={{ ...FONTS.body3, flexWrap: 'wrap', color: COLORS.darkgray }}>
                         {item.description}
                     </Text>
-
-                    {/* Location */}
-                    <Text style={{ marginTop: SIZES.padding, ...FONTS.h4, }}>Location</Text>
-                    <View style={{ flexDirection: 'row' }}>
-                        <Image
-                            source={icons.pin}
-                            style={{
-                                width: 20,
-                                height: 20,
-                                tintColor: COLORS.darkgray,
-                                marginRight: 5
-                            }}
-                        />
-                        <Text style={{ marginBottom: SIZES.base, color: COLORS.darkgray, ...FONTS.body4 }}>{item.location}</Text>
-                    </View>
                 </View>
 
                 {/* Price */}
@@ -598,7 +582,7 @@ const Home = () => {
                         backgroundColor: selectedCategory.color,
                     }}
                 >
-                    <Text style={{ color: COLORS.white, ...FONTS.body3 }}>CONFIRM {item.total.toFixed(2)} USD</Text>
+                    <Text style={{ color: COLORS.white, ...FONTS.body3 }}>{item.total.toFixed(2)} TL</Text>
                 </View>
             </View>
         )
@@ -768,7 +752,7 @@ const Home = () => {
                     </Svg>
                     <View style={{ position: 'absolute', top: '42%', left: "42%" }}>
                         <Text style={{ ...FONTS.h1, textAlign: 'center' }}>{totalExpenseCount}</Text>
-                        <Text style={{ ...FONTS.body3, textAlign: 'center' }}>Expses</Text>
+                        <Text style={{ ...FONTS.body3, textAlign: 'center' }}>Harcama</Text>
                     </View>
                 </View>
             )
@@ -780,10 +764,15 @@ const Home = () => {
 
 
     function renderEkle() {
+        let categoryName 
 
         const renderItem = ({ item }) => (
             <TouchableOpacity
-                onPress={() => setSelectedCategory(item)}
+                onPress={() => {
+                    categoryName = item.name
+                    setSelectCategoryByName(categoryName)}
+                }
+
                 style={{
                     flex: 1,
                     flexDirection: 'row',
@@ -791,7 +780,7 @@ const Home = () => {
                     paddingVertical: 20,
                     paddingHorizontal: SIZES.padding,
                     borderRadius: 5,
-                    backgroundColor: COLORS.white,
+                    backgroundColor: (selectedCategory && selectedCategory.name == item.name) ? item.color : COLORS.white,
                     ...styles.shadow
                 }}
             >
@@ -803,7 +792,7 @@ const Home = () => {
                         tintColor: item.color
                     }}
                 />
-                <Text style={{ marginLeft: SIZES.base, color: COLORS.primary, ...FONTS.h4 }}>{item.name}</Text>
+                <Text style={{ marginLeft: SIZES.base, color: COLORS.primary, ...FONTS.h3 }}>{item.name}</Text>
             </TouchableOpacity>
         )
 
@@ -815,23 +804,54 @@ const Home = () => {
                         keyExtractor={item => `${item.id}`}
                         numColumns={2}
                     />
-                    
-                    <Button title="Gider Ekle" onPress={showDialog} />
-                    <Dialog.Container visible={visible}>
-                        <Dialog.Title>Gider Ekle</Dialog.Title>
-                        <Dialog.Description>
-                            Eklemek istediğin kategoriyi seçip miktarı yazın
-                        </Dialog.Description>
-                        <Dialog.Input
-                            placeholder="...."
-                            keyboardType="numeric"
-                            style={styles.input}
-                            onChangeText={onChangeNumber}
-                            value={number}>
-                        </Dialog.Input>
-                        <Dialog.Button label="İptal" onPress={handleCancel} />
-                        <Dialog.Button label="Ekle" onPress={handleDelete} />
-                    </Dialog.Container>
+                   
+                    <View style={styles.Bcontainer}>
+                        <View style={styles.buttonContainer}>
+                            <Button title="Gider Ekle" color= "#d24dff" onPress={showDialog} />
+                            <Dialog.Container visible={visible}>
+                                <Dialog.Title> Gider Ekle</Dialog.Title>
+                                <Dialog.Input
+                                    placeholder="Başlık"
+                                    keyboardType="default"
+                                    style={styles.input}
+                                    onChangeText={onChangeNumber}>
+                                </Dialog.Input>
+                                <Dialog.Input
+                                    placeholder="Açıklama"
+                                    keyboardType="default"
+                                    style={styles.input}
+                                    onChangeText={onChangeNumber}>
+                                </Dialog.Input>
+                                <Dialog.Input
+                                    placeholder="Ödeme"
+                                    keyboardType="numeric"
+                                    style={styles.input}
+                                    onChangeText={onChangeNumber}>
+                                </Dialog.Input>
+                                <Dialog.Button label="İptal" onPress={handleCancel} />
+                                <Dialog.Button label="Ekle" onPress={handleDelete} />
+                            </Dialog.Container>
+                        </View>
+                        <View style={styles.buttonContainer}>
+                            <Button title="Gelir Ekle" color = "#ff4d94" onPress={showDialogG} />
+                            <Dialog.Container visible={visibleG}>
+                                <Dialog.Title> Gelir Ekle</Dialog.Title>
+                                <Dialog.Description>
+                                    {categoryName}
+                                </Dialog.Description>
+                                <Dialog.Input
+                                    placeholder="Para"
+                                    keyboardType="numeric"
+                                    style={styles.input}
+                                    onChangeText={onChangeNumber}>
+                                </Dialog.Input>
+                                <Dialog.Button label="İptal" onPress={handleCancelG} />
+                                <Dialog.Button label="Ekle" onPress={handleDeleteG} />
+                            </Dialog.Container>
+                        </View>
+                    </View>
+
+
             </View>
         )
     }
@@ -869,7 +889,7 @@ const Home = () => {
 
                 {/* Expenses */}
                 <View style={{ justifyContent: 'center' }}>
-                    <Text style={{ color: (selectedCategory && selectedCategory.name == item.name) ? COLORS.white : COLORS.primary, ...FONTS.h3 }}>{item.y} USD - {item.label}</Text>
+                    <Text style={{ color: (selectedCategory && selectedCategory.name == item.name) ? COLORS.white : COLORS.primary, ...FONTS.h3 }}>{item.y} TL - {item.label}</Text>
                 </View>
             </TouchableOpacity>
         )
@@ -942,11 +962,20 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         alignItems: "center",
         justifyContent: "center",
-      },
+    },
     input: {
         height: 40,
         margin: 12,
         borderWidth: 1,
+    },
+    Bcontainer: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    buttonContainer: {
+        flex: 1,
     }
 })
 

@@ -14,7 +14,7 @@ const SignupScreen = ({navigation}) => {
   
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>Create an account</Text>
+        <Text style={styles.text}> Haydi Hesap Oluştur!</Text>
   
         <FormInput
           labelValue={email}
@@ -29,7 +29,7 @@ const SignupScreen = ({navigation}) => {
         <FormInput
           labelValue={password}
           onChangeText={(userPassword) => setPassword(userPassword)}
-          placeholderText="Password"
+          placeholderText="Şifre"
           iconType="lock"
           secureTextEntry={true}
         />
@@ -37,13 +37,13 @@ const SignupScreen = ({navigation}) => {
         <FormInput
           labelValue={confirmPassword}
           onChangeText={(userPassword) => setConfirmPassword(userPassword)}
-          placeholderText="Confirm Password"
+          placeholderText="Şifre Tekrar"
           iconType="lock"
           secureTextEntry={true}
         />
   
         <FormButton
-          buttonTitle="Sign Up"
+          buttonTitle="Kayıt OL"
           onPress={() => register(email, password)}
         />
   
@@ -66,7 +66,7 @@ const SignupScreen = ({navigation}) => {
         <TouchableOpacity
           style={styles.navButton}
           onPress={() => navigation.navigate('Login')}>
-          <Text style={styles.navButtonText}>Have an account? Sign In</Text>
+          <Text style={styles.navButtonText}>Zaten Hesabın var mı? Giriş yap</Text>
         </TouchableOpacity>
       </View>
     );
