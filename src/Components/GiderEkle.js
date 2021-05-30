@@ -12,3 +12,12 @@ const RootNavigator = StackNavigator({
 });
 
 export default RootNavigator;
+/*
+<View style={{ 
+  paddingHorizontal: SIZES.padding, 
+  paddingVertical:  SIZES.padding, 
+  backgroundColor: '#a83baa',
+  flex: 1,
+  flexDirection: 'row',
+  margin: 5,
+  //borderRadius: 5,*/
