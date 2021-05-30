@@ -18,12 +18,15 @@ import {
 
 import { LogBox } from 'react-native';
 import { VictoryPie } from 'victory-native';
+import firebase from '@react-native-firebase/database';
+import {db} from '../config';
 
 import {Svg} from 'react-native-svg';
 
 import { COLORS, FONTS, SIZES, icons, images } from '../../constants';
 
 import {AuthContext} from '../navigation/AuthProvider';
+//import { firebase } from "@react-native-firebase/auth";
 const Home = () => {
 
     // dummy data
@@ -372,24 +375,33 @@ const Home = () => {
         )
     }
 
-    
     function renderHeader() {
       
     }
+   
 
     function renderCategoryHeaderSection() {
         return (
             <View style={{ flexDirection: 'row', padding: SIZES.padding, justifyContent: 'space-between', alignItems: 'center' }}>
-                {/* Title */}
-                <View>
-                    <Text style={{ color: COLORS.primary, ...FONTS.h3 }}>KATEGORİLER</Text>
-                    <Text style={{ color: COLORS.darkgray, ...FONTS.body4 }}>Toplam : {categories.length}</Text>
-                </View>
-
-            
 
                 {/* Button */}
-                <View style={{ flexDirection: 'row' }}>        
+                <View style={{ flexDirection: 'row' }}>   
+                {/*gelirekle   */}  
+                <TouchableOpacity
+                    style={{
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: viewMode == "Ekle" ? COLORS.darkgreen : COLORS.darkgreen,
+                        height: 50,
+                        width: 120,
+                        borderRadius: 25
+                    }}
+                    onPress={() => setViewMode("GelirEkle")}
+                     >
+                          <Text>Geliğr Ekle</Text>
+                     </TouchableOpacity>   
+
+                     {/*giderekle   */}
                 <TouchableOpacity
                     style={{
                         alignItems: 'center',
@@ -399,12 +411,13 @@ const Home = () => {
                         width: 120,
                         borderRadius: 25
                     }}
-    
                     onPress={() => setViewMode("Ekle")}
                      >
-                          <Text>Gider Ekle</Text>
+                          <Text>Gider Ekle1</Text>
                      </TouchableOpacity>   
-                     <TouchableOpacity
+
+                     {/*chart*/}
+                 <TouchableOpacity
                         style={{
                             alignItems: 'center',
                             justifyContent: 'center',
@@ -426,10 +439,9 @@ const Home = () => {
                         />
                     </TouchableOpacity>
 
-                    
-
-
-                    <TouchableOpacity
+        
+                     {/*listeleme*/}
+                <TouchableOpacity
                         style={{
                             alignItems: 'center',
                             justifyContent: 'center',
@@ -455,6 +467,10 @@ const Home = () => {
             </View>
         )
     }
+
+
+
+
 
     function renderCategoryList() {
         const renderItem = ({ item }) => (
@@ -714,7 +730,12 @@ const Home = () => {
         {
             // Android workaround by wrapping VictoryPie with SVG
             return (
-                <View  style={{ alignItems: 'center', justifyContent: 'center' }}>
+              <View  style={{ alignItems: 'center', justifyContent: 'center' }}>
+                  <View >
+                    <Text style={{  position: 'relative', top: '48%', right: "30%" , color: COLORS.primary, ...FONTS.h3 }}>KATEGORİLER</Text>
+                    <Text style={{  position: 'relative', top: '48%', right: "30%" ,color: COLORS.darkgray, ...FONTS.body4 }}>Toplam : {categories.length}</Text>
+                </View>
+
                     <Svg width={SIZES.width} height={SIZES.width} style={{width: "100%", height: "auto"}}>
 
                         <VictoryPie
@@ -750,8 +771,8 @@ const Home = () => {
         
                         />
                     </Svg>
-                    <View style={{ position: 'absolute', top: '42%', left: "42%" }}>
-                        <Text style={{ ...FONTS.h1, textAlign: 'center' }}>{totalExpenseCount}</Text>
+                    <View style={{ position: 'absolute', top: '48%', left: "42%" }}>
+                         <Text style={{ ...FONTS.h1, textAlign: 'center' }}>{totalExpenseCount}</Text>
                         <Text style={{ ...FONTS.body3, textAlign: 'center' }}>Harcama</Text>
                     </View>
                 </View>
@@ -759,9 +780,6 @@ const Home = () => {
         }
         
     }
-
-
-
 
     function renderEkle() {
         let categoryName 
@@ -856,6 +874,53 @@ const Home = () => {
         )
     }
 
+    butceyaz = () =>{
+        //firebase.database().ref('butce').set('aa')
+        db.ref('userm').set(this.state.text)
+    }
+
+    function renderGelirEkle() {
+        let categoryName 
+
+       
+        return (
+            <View style={{ paddingHorizontal: SIZES.padding, 
+                paddingVertical: SIZES.padding, 
+                backgroundColor:  '#a83baa'  , 
+                borderRadius: 5,
+                width:350,
+                height:250
+                }}>
+            
+            <View style={{ height: 30, padding: SIZES.padding - 30 }}>
+                {/* Title */}
+                <Text style={{ ...FONTS.h2, color: COLORS.primary }}>Toplam Bütçe</Text>
+            </View>
+
+                <View style={styles.Bcontainer}>
+                        <View style={  styles.buttonContainer}>
+                        <Button title="Gider Ekle" color= "#ff4d94" onPress={showDialogG} />
+                            <Dialog.Container visible={visibleG}>
+                                <Dialog.Title> Gelir Ekle</Dialog.Title>
+                                <Dialog.Description>
+                                    {categoryName}
+                                </Dialog.Description>
+                                <Dialog.Input
+                                    placeholder="Para"
+                                    keyboardType="numeric"
+                                    style={styles.input}
+                                    onChangeText={onChangeNumber}>
+                                </Dialog.Input>
+                                <Dialog.Button label="İptal" onPress={handleCancelG} />
+                                <Dialog.Button label="Ekle" onPress={() => this.butceyaz()} />
+                            </Dialog.Container>  
+                        </View>
+                    </View>
+                </View>  
+        )
+    }
+  
+            
     function renderExpenseSummary() {
         let data = processCategoryDataToDisplay()
 
@@ -928,6 +993,13 @@ const Home = () => {
                     </View>
                 }
                 {
+                    viewMode == "GelirPop" &&
+                    <View>
+                        {renderGelirEklePop()}
+                    
+                    </View>
+                }
+                {
                     viewMode == "chart" &&
                     <View>
                         {renderChart()}
@@ -941,6 +1013,15 @@ const Home = () => {
                         
                     </View>
                 }
+                {
+                    viewMode == "GelirEkle" &&
+                    <View>
+                        {renderGelirEkle()}
+                        
+                    </View>
+                }
+                      
+
             </ScrollView>
         </View>
     )
