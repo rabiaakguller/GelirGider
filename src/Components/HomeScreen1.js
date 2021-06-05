@@ -1,4 +1,4 @@
-import React, { useRef, useContext, useEffect } from "react";
+import React, { useState,useRef, useContext, useEffect } from "react";
 import Dialog from "react-native-dialog";
 import {
     SafeAreaView,
@@ -26,7 +26,7 @@ import {Svg} from 'react-native-svg';
 import { COLORS, FONTS, SIZES, icons, images } from '../../constants';
 
 import {AuthContext} from '../navigation/AuthProvider';
-//import { firebase } from "@react-native-firebase/auth";
+
 const Home = () => {
 
     // dummy data
@@ -398,7 +398,7 @@ const Home = () => {
                     }}
                     onPress={() => setViewMode("GelirEkle")}
                      >
-                          <Text>Geliğr Ekle</Text>
+                          <Text>Gelir Ekle</Text>
                      </TouchableOpacity>   
 
                      {/*giderekle   */}
@@ -413,7 +413,7 @@ const Home = () => {
                     }}
                     onPress={() => setViewMode("Ekle")}
                      >
-                          <Text>Gider Ekle1</Text>
+                          <Text>Gider Ekle</Text>
                      </TouchableOpacity>   
 
                      {/*chart*/}
@@ -827,7 +827,7 @@ const Home = () => {
                         <View style={styles.buttonContainer}>
                             <Button title="Gider Ekle" color= "#d24dff" onPress={showDialog} />
                             <Dialog.Container visible={visible}>
-                                <Dialog.Title> Gider Ekle</Dialog.Title>
+                                <Dialog.Title> Ekle</Dialog.Title>
                                 <Dialog.Input
                                     placeholder="Başlık"
                                     keyboardType="default"
@@ -850,23 +850,7 @@ const Home = () => {
                                 <Dialog.Button label="Ekle" onPress={handleDelete} />
                             </Dialog.Container>
                         </View>
-                        <View style={styles.buttonContainer}>
-                            <Button title="Gelir Ekle" color = "#ff4d94" onPress={showDialogG} />
-                            <Dialog.Container visible={visibleG}>
-                                <Dialog.Title> Gelir Ekle</Dialog.Title>
-                                <Dialog.Description>
-                                    {categoryName}
-                                </Dialog.Description>
-                                <Dialog.Input
-                                    placeholder="Para"
-                                    keyboardType="numeric"
-                                    style={styles.input}
-                                    onChangeText={onChangeNumber}>
-                                </Dialog.Input>
-                                <Dialog.Button label="İptal" onPress={handleCancelG} />
-                                <Dialog.Button label="Ekle" onPress={handleDeleteG} />
-                            </Dialog.Container>
-                        </View>
+    
                     </View>
 
 
@@ -874,15 +858,37 @@ const Home = () => {
         )
     }
 
-    butceyaz = () =>{
-        //firebase.database().ref('butce').set('aa')
-        db.ref('userm').set(this.state.text)
+    butceoku = () => {
+
+        db.ref('/yalcin/cuzzdan').on('value', snapshot => 
+        { 
+            console.log('User data: ', snapshot.val()); 
+            global.data = snapshot.val();
+        }
+        );
+    }
+
+    butceyaz = (number) =>{
+        /*firebase.database().ref('butce').set('aa')*/
+
+        db.ref('/yalcin/cuzzdan').on('value', snapshot => 
+            { 
+                console.log('User data: ', snapshot.val()); 
+                global.data = snapshot.val();
+            }
+        );
+       // console.log(data);
+        
+       // const data = number + data;
+        //data = data + parseInt(number);
+        
+        db.ref('/yalcin/cuzzdan').set(number);
+        handleDeleteG();
     }
 
     function renderGelirEkle() {
         let categoryName 
 
-       
         return (
             <View style={{ paddingHorizontal: SIZES.padding, 
                 paddingVertical: SIZES.padding, 
@@ -895,13 +901,20 @@ const Home = () => {
             <View style={{ height: 30, padding: SIZES.padding - 30 }}>
                 {/* Title */}
                 <Text style={{ ...FONTS.h2, color: COLORS.primary }}>Toplam Bütçe</Text>
+
             </View>
+            <View style={{ flex: 1, justifyContent:'flex-end', alignItems: 'flex-end' }}>
+            <Text style={{ fontSize: 50, color: '#FFF', padding: - 30, fontWeight: '200' }}>{number} TL</Text>
+            </View>
+
+
+
 
                 <View style={styles.Bcontainer}>
                         <View style={  styles.buttonContainer}>
-                        <Button title="Gider Ekle" color= "#ff4d94" onPress={showDialogG} />
+                        <Button title="Ekle" color= "#ff4d94" onPress={showDialogG} />
                             <Dialog.Container visible={visibleG}>
-                                <Dialog.Title> Gelir Ekle</Dialog.Title>
+                                <Dialog.Title> Gelir Eke</Dialog.Title>
                                 <Dialog.Description>
                                     {categoryName}
                                 </Dialog.Description>
@@ -909,10 +922,13 @@ const Home = () => {
                                     placeholder="Para"
                                     keyboardType="numeric"
                                     style={styles.input}
-                                    onChangeText={onChangeNumber}>
+                                    onChangeText={onChangeNumber}
+                                    //onChangeText={text => this.SetState({text:text})}
+                                    value={number}
+                                   >
                                 </Dialog.Input>
                                 <Dialog.Button label="İptal" onPress={handleCancelG} />
-                                <Dialog.Button label="Ekle" onPress={() => this.butceyaz()} />
+                                <Dialog.Button label="Ekle" onPress={ () => butceyaz(number)} />
                             </Dialog.Container>  
                         </View>
                     </View>
@@ -982,21 +998,13 @@ const Home = () => {
             {/* Category Header Section */}
             {renderCategoryHeaderSection()}
 
-            <ScrollView style={{ backgroundColor: 'whitesmoke', marginHorizontal:
-20 }} showsVerticalScrollIndicator={false}>
+            <ScrollView style={{ backgroundColor: 'whitesmoke', marginHorizontal:20 }} showsVerticalScrollIndicator={false}>
            
                 {
                     viewMode == "list" &&
                     <View>
                         {renderCategoryList()}
                         {renderIncomingExpenses()}
-                    </View>
-                }
-                {
-                    viewMode == "GelirPop" &&
-                    <View>
-                        {renderGelirEklePop()}
-                    
                     </View>
                 }
                 {
@@ -1017,7 +1025,7 @@ const Home = () => {
                     viewMode == "GelirEkle" &&
                     <View>
                         {renderGelirEkle()}
-                        
+
                     </View>
                 }
                       
