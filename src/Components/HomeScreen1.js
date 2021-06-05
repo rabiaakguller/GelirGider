@@ -781,15 +781,30 @@ const Home = () => {
         
     }
 
-    butceGuncelle = (number) =>{
+    butceGuncelle = (number,id,text) =>{
         let MinusNumber = 0 - parseInt(number,10);
         datanew = datanew + MinusNumber;
         db.ref('/Cuzdan/Butce').set(datanew);
+        categoriesData[id-1].expenses[0].title = {text};
 
-        db.ref('/Kategoriler/Gıda/').set(categoriesData[2].expenses[1].title);
-        db.ref('/Kategoriler/Çocuk/').set(categoriesData[3].expenses[1].title);
-
+        //db.ref('/Kategoriler/Eğitim/').set(categoriesData[0].expenses[0].title);
+        db.ref('/Kategoriler/Gıda/').set(categoriesData[1].expenses[0].title);
+        db.ref('/Kategoriler/Çocuk/').set(categoriesData[2].expenses[0].title);
+        db.ref('/Kategoriler/Kişisel Bakım/').set(categoriesData[3].expenses[0].title);
+        db.ref('/Kategoriler/Spor/').set(categoriesData[4].expenses[0].title);
+        db.ref('/Kategoriler/Kıyafet/').set(categoriesData[5].expenses[0].title);
+        db.ref('/Kategoriler/Pazar/').set(categoriesData[6].expenses[0].title);
+        db.ref('/Kategoriler/Hobi/').set(categoriesData[7].expenses[0].title);
         handleDelete();
+
+        var dbRef = db.ref('/Kategoriler/Eğitim/');
+        var listRef = dbRef.push();
+        listRef.set({
+            "1item" : categoriesData[0].expenses[0].title,
+            "2item" : categoriesData[0].expenses[1].title,
+            "3item" : categoriesData[0].expenses[2].title
+        }
+        )
     }
 
 
@@ -841,16 +856,18 @@ const Home = () => {
                             <Dialog.Container visible={visible}>
                                 <Dialog.Title> Ekle</Dialog.Title>
                                 <Dialog.Input
-                                    placeholder="Başlık"
+                                    placeholder="sa"//{selectedCategory.name}
                                     keyboardType="default"
                                     style={styles.input}
-                                    onChangeText={onChangeNumber}>
+                                    onChangeText={onChangeText}>
                                 </Dialog.Input>
                                 <Dialog.Input
                                     placeholder="Açıklama"
                                     keyboardType="default"
                                     style={styles.input}
-                                    onChangeText={onChangeNumber}>
+                                    onChangeText={onChangeText}
+                                    Text={text}
+                                    >
                                 </Dialog.Input>
                                 <Dialog.Input
                                     placeholder="Ödeme"
@@ -860,7 +877,7 @@ const Home = () => {
                                     value={number}>
                                 </Dialog.Input>
                                 <Dialog.Button label="İptal" onPress={handleCancel} />
-                                <Dialog.Button label="Ekle" onPress={ () => butceGuncelle(number)} />
+                                <Dialog.Button label="Ekle" onPress={ () => butceGuncelle(number,selectedCategory.id,text)} />
                             </Dialog.Container>
                         </View>
     
