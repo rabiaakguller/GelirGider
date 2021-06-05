@@ -781,6 +781,18 @@ const Home = () => {
         
     }
 
+    butceGuncelle = (number) =>{
+        let MinusNumber = 0 - parseInt(number,10);
+        datanew = datanew + MinusNumber;
+        db.ref('/Cuzdan/Butce').set(datanew);
+
+        db.ref('/Kategoriler/Gıda/').set(categoriesData[2].expenses[1].title);
+        db.ref('/Kategoriler/Çocuk/').set(categoriesData[3].expenses[1].title);
+
+        handleDelete();
+    }
+
+
     function renderEkle() {
         let categoryName 
 
@@ -844,10 +856,11 @@ const Home = () => {
                                     placeholder="Ödeme"
                                     keyboardType="numeric"
                                     style={styles.input}
-                                    onChangeText={onChangeNumber}>
+                                    onChangeText={onChangeNumber}
+                                    value={number}>
                                 </Dialog.Input>
                                 <Dialog.Button label="İptal" onPress={handleCancel} />
-                                <Dialog.Button label="Ekle" onPress={handleDelete} />
+                                <Dialog.Button label="Ekle" onPress={ () => butceGuncelle(number)} />
                             </Dialog.Container>
                         </View>
     
@@ -858,36 +871,45 @@ const Home = () => {
         )
     }
 
-    butceoku = () => {
+    function butceoku(){
 
-        db.ref('/yalcin/cuzzdan').on('value', snapshot => 
+        db.ref('/Cuzdan/Butce').on('value', snapshot => 
         { 
             console.log('User data: ', snapshot.val()); 
-            global.data = snapshot.val();
+            global.datanew = snapshot.val();
         }
         );
+    }
+
+    butceyazYeniDatabase = (number) =>{
+        db.ref('/Cuzdan/Butce').set(number);
+        handleDeleteG();
     }
 
     butceyaz = (number) =>{
         /*firebase.database().ref('butce').set('aa')*/
 
-        db.ref('/yalcin/cuzzdan').on('value', snapshot => 
+        db.ref('/Cuzdan/Butce').on('value', snapshot => 
             { 
                 console.log('User data: ', snapshot.val()); 
                 global.data = snapshot.val();
             }
         );
-       // console.log(data);
+        console.log(data);
+        let datanew = parseInt(data,10);
+        //data = number + data;
+        datanew = datanew + parseInt(number,10);
+
+        console.log(datanew);
         
-       // const data = number + data;
-        //data = data + parseInt(number);
-        
-        db.ref('/yalcin/cuzzdan').set(number);
+        db.ref('/Cuzdan/Butce').set(datanew);
         handleDeleteG();
     }
 
     function renderGelirEkle() {
         let categoryName 
+        butceoku();
+        //var CurrentValue = data;
 
         return (
             <View style={{ paddingHorizontal: SIZES.padding, 
@@ -904,7 +926,7 @@ const Home = () => {
 
             </View>
             <View style={{ flex: 1, justifyContent:'flex-end', alignItems: 'flex-end' }}>
-            <Text style={{ fontSize: 50, color: '#FFF', padding: - 30, fontWeight: '200' }}>{number} TL</Text>
+            <Text style={{ fontSize: 50, color: '#FFF', padding: - 30, fontWeight: '200' }}>{datanew} TL</Text>
             </View>
 
 
@@ -989,6 +1011,9 @@ const Home = () => {
 
     return (
         <View style={{ flex: 1, backgroundColor: COLORS.lightGray2 }}>
+            {/*ilk database degerini oku ve ekrana yazmak uzere kaydet*/}
+            {butceoku()}
+            
             {/* Nav bar section */}
             {renderNavBar()}
 
