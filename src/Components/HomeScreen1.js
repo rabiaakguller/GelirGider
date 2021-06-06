@@ -83,7 +83,7 @@ const Home = () => {
                     description: "Tuition fee",
                     location: "ByProgrammers' tuition center",
                     total: 100.00,
-                    status: pendingStatus
+                    status: confirmStatus
                 },
                 {
                     id: 2,
@@ -91,7 +91,7 @@ const Home = () => {
                     description: "Hardward",
                     location: "ByProgrammers' tuition center",
                     total: 30.00,
-                    status: pendingStatus
+                    status: confirmStatus
                 },
                 {
                     id: 3,
@@ -123,7 +123,7 @@ const Home = () => {
                     description: "Vitamin",
                     location: "ByProgrammers' Pharmacy",
                     total: 25.00,
-                    status: pendingStatus,
+                    status: confirmStatus,
                 },
 
                 {
@@ -157,7 +157,7 @@ const Home = () => {
                     description: "Bebek Bezi",
                     location: "ByProgrammers' Baby Care Store",
                     total: 80.00,
-                    status: pendingStatus,
+                    status: confirmStatus,
                 },
                 {
                     id: 9,
@@ -165,7 +165,7 @@ const Home = () => {
                     description: "Pampers",
                     location: "ByProgrammers' Supermarket",
                     total: 100.00,
-                    status: pendingStatus,
+                    status: confirmStatus,
                 },
                 {
                     id: 10,
@@ -173,7 +173,7 @@ const Home = () => {
                     description: "T-Shirt",
                     location: "ByProgrammers' Fashion Store",
                     total: 20.00,
-                    status: pendingStatus,
+                    status: confirmStatus,
                 },
             ],
         },
@@ -189,7 +189,7 @@ const Home = () => {
                     description: "Cilt Sağlığı",
                     location: "ByProgrammers' Pharmacy",
                     total: 130.00,
-                    status: pendingStatus,
+                    status: confirmStatus,
                 },
                 {
                     id: 12,
@@ -205,7 +205,7 @@ const Home = () => {
                     description: "Face Mask",
                     location: "ByProgrammers' Pharmacy",
                     total: 50.00,
-                    status: pendingStatus,
+                    status: confirmStatus,
                 },
                 {
                     id: 14,
@@ -213,7 +213,7 @@ const Home = () => {
                     description: "Sunscreen cream",
                     location: "ByProgrammers' Pharmacy",
                     total: 50.00,
-                    status: pendingStatus,
+                    status: confirmStatus,
                 },
             ],
         },
@@ -229,7 +229,7 @@ const Home = () => {
                     description: "Monthly Fee",
                     location: "ByProgrammers' Gym",
                     total: 45.00,
-                    status: pendingStatus,
+                    status: confirmStatus,
                 },
                 {
                     id: 16,
@@ -253,7 +253,7 @@ const Home = () => {
                     description: "Plain Color T-Shirt",
                     location: "ByProgrammers' Mall",
                     total: 20.00,
-                    status: pendingStatus,
+                    status: confirmStatus,
                 },
                 {
                     id: 18,
@@ -540,7 +540,7 @@ const Home = () => {
 
     function renderIncomingExpenses() {
         let allExpenses = selectedCategory ? selectedCategory.expenses : []
-        let incomingExpenses = allExpenses.filter(a => a.status == "P")
+        let incomingExpenses = allExpenses.filter(a => a.status == "C")
 
         const renderItem = ({ item, index }) => (
             <View style={{
@@ -598,7 +598,7 @@ const Home = () => {
                         backgroundColor: selectedCategory.color,
                     }}
                 >
-                    <Text style={{ color: COLORS.white, ...FONTS.body3 }}>{item.total.toFixed(2)} TL</Text>
+                    <Text style={{ color: COLORS.white, ...FONTS.body3 }}>{parseFloat(item.total).toFixed(2)} TL</Text>
                 </View>
             </View>
         )
@@ -785,26 +785,28 @@ const Home = () => {
         let MinusNumber = 0 - parseInt(number,10);
         datanew = datanew + MinusNumber;
         db.ref('/Cuzdan/Butce').set(datanew);
-        categoriesData[id-1].expenses[0].title = {text};
 
-        //db.ref('/Kategoriler/Eğitim/').set(categoriesData[0].expenses[0].title);
-        db.ref('/Kategoriler/Gıda/').set(categoriesData[1].expenses[0].title);
-        db.ref('/Kategoriler/Çocuk/').set(categoriesData[2].expenses[0].title);
-        db.ref('/Kategoriler/Kişisel Bakım/').set(categoriesData[3].expenses[0].title);
-        db.ref('/Kategoriler/Spor/').set(categoriesData[4].expenses[0].title);
-        db.ref('/Kategoriler/Kıyafet/').set(categoriesData[5].expenses[0].title);
-        db.ref('/Kategoriler/Pazar/').set(categoriesData[6].expenses[0].title);
-        db.ref('/Kategoriler/Hobi/').set(categoriesData[7].expenses[0].title);
-        handleDelete();
+        categories[id-1].expenses[0].title = text;
+        categories[id-1].expenses[0].total = number;
 
-        var dbRef = db.ref('/Kategoriler/Eğitim/');
+        var dbRef = db.ref('/Kategoriler/');
         var listRef = dbRef.push();
         listRef.set({
-            "1item" : categoriesData[0].expenses[0].title,
-            "2item" : categoriesData[0].expenses[1].title,
-            "3item" : categoriesData[0].expenses[2].title
+            'Gider' : categories[id-1].expenses[0].title + ': ' + number + ' TL'
         }
         )
+
+        //db.ref('/Kategoriler/Eğitim/').set(categoriesData[0].expenses[0].title);
+        //db.ref('/Kategoriler/Gıda/').set(categoriesData[1].expenses[0].title);
+        //db.ref('/Kategoriler/Çocuk/').set(categoriesData[2].expenses[0].title);
+        //db.ref('/Kategoriler/Kişisel Bakım/').set(categoriesData[3].expenses[0].title);
+        //db.ref('/Kategoriler/Spor/').set(categoriesData[4].expenses[0].title);
+        //db.ref('/Kategoriler/Kıyafet/').set(categoriesData[5].expenses[0].title);
+        //db.ref('/Kategoriler/Pazar/').set(categoriesData[6].expenses[0].title);
+        //db.ref('/Kategoriler/Hobi/').set(categoriesData[7].expenses[0].title);
+        handleDelete();
+
+
     }
 
 
