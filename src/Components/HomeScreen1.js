@@ -79,34 +79,34 @@ const Home = () => {
             expenses: [
                 {
                     id: 1,
-                    title: "Tuition Fee",
-                    description: "Tuition fee",
-                    location: "ByProgrammers' tuition center",
-                    total: 100.00,
+                    title: "",
+                    description: "",
+                    location: "",
+                    total: 0.00,
                     status: confirmStatus
                 },
                 {
                     id: 2,
-                    title: "Arduino",
-                    description: "Hardward",
-                    location: "ByProgrammers' tuition center",
-                    total: 30.00,
+                    title: "",
+                    description: "",
+                    location: "",
+                    total: 0.00,
                     status: confirmStatus
                 },
                 {
                     id: 3,
-                    title: "Javascript Books",
-                    description: "Javascript books",
-                    location: "ByProgrammers' Book Store",
-                    total: 20.00,
+                    title: "",
+                    description: "",
+                    location: "",
+                    total: 0.00,
                     status: confirmStatus
                 },
                 {
                     id: 4,
-                    title: "PHP Books",
-                    description: "PHP books",
-                    location: "ByProgrammers' Book Store",
-                    total: 20.00,
+                    title: "",
+                    description: "",
+                    location: "",
+                    total: 0.00,
                     status: confirmStatus
                 }
             ],
@@ -119,19 +119,37 @@ const Home = () => {
             expenses: [
                 {
                     id: 5,
-                    title: "Vitamins",
-                    description: "Vitamin",
-                    location: "ByProgrammers' Pharmacy",
-                    total: 25.00,
+                    title: "",
+                    description: "",
+                    location: "",
+                    total: 0.00,
                     status: confirmStatus,
                 },
 
                 {
                     id: 6,
-                    title: "Protein powder",
-                    description: "Protein",
+                    title: "",
+                    description: "",
                     location: "ByProgrammers' Pharmacy",
-                    total: 50.00,
+                    total: 0.00,
+                    status: confirmStatus,
+                },
+
+                {
+                    id: 7,
+                    title: "",
+                    description: "",
+                    location: "ByProgrammers' Pharmacy",
+                    total: 0.00,
+                    status: confirmStatus,
+                },
+
+                {
+                    id: 8,
+                    title: "",
+                    description: "",
+                    location: "ByProgrammers' Pharmacy",
+                    total: 0.00,
                     status: confirmStatus,
                 },
 
@@ -144,35 +162,35 @@ const Home = () => {
             color: COLORS.darkgreen,
             expenses: [
                 {
-                    id: 7,
-                    title: "Toys",
-                    description: "toys",
-                    location: "ByProgrammers' Toy Store",
-                    total: 25.00,
-                    status: confirmStatus,
-                },
-                {
-                    id: 8,
-                    title: "Bebek Bezi",
-                    description: "Bebek Bezi",
-                    location: "ByProgrammers' Baby Care Store",
-                    total: 80.00,
-                    status: confirmStatus,
-                },
-                {
                     id: 9,
-                    title: "Pampers",
-                    description: "Pampers",
-                    location: "ByProgrammers' Supermarket",
-                    total: 100.00,
+                    title: "",
+                    description: "",
+                    location: "ByProgrammers' Toy Store",
+                    total: 0.00,
                     status: confirmStatus,
                 },
                 {
                     id: 10,
-                    title: "Baby T-Shirt",
-                    description: "T-Shirt",
+                    title: "",
+                    description: "",
+                    location: "ByProgrammers' Baby Care Store",
+                    total: 0.00,
+                    status: confirmStatus,
+                },
+                {
+                    id: 11,
+                    title: "",
+                    description: "",
+                    location: "ByProgrammers' Supermarket",
+                    total: 0.00,
+                    status: confirmStatus,
+                },
+                {
+                    id: 12,
+                    title: "",
+                    description: "",
                     location: "ByProgrammers' Fashion Store",
-                    total: 20.00,
+                    total: 0.00,
                     status: confirmStatus,
                 },
             ],
@@ -184,35 +202,35 @@ const Home = () => {
             color: COLORS.peach,
             expenses: [
                 {
-                    id: 11,
-                    title: "Yüz Temizleme Jeli",
-                    description: "Cilt Sağlığı",
-                    location: "ByProgrammers' Pharmacy",
-                    total: 130.00,
-                    status: confirmStatus,
-                },
-                {
-                    id: 12,
-                    title: "Lotion",
-                    description: "Lotion",
-                    location: "ByProgrammers' Pharmacy",
-                    total: 50.00,
-                    status: confirmStatus,
-                },
-                {
                     id: 13,
-                    title: "Face Mask",
-                    description: "Face Mask",
+                    title: "",
+                    description: "",
                     location: "ByProgrammers' Pharmacy",
-                    total: 50.00,
+                    total: 0.00,
                     status: confirmStatus,
                 },
                 {
                     id: 14,
-                    title: "Sunscreen cream",
-                    description: "Sunscreen cream",
+                    title: "",
+                    description: "",
                     location: "ByProgrammers' Pharmacy",
-                    total: 50.00,
+                    total: 0.00,
+                    status: confirmStatus,
+                },
+                {
+                    id: 15,
+                    title: "",
+                    description: "",
+                    location: "ByProgrammers' Pharmacy",
+                    total: 0.00,
+                    status: confirmStatus,
+                },
+                {
+                    id: 16,
+                    title: "",
+                    description: "",
+                    location: "ByProgrammers' Pharmacy",
+                    total: 0.00,
                     status: confirmStatus,
                 },
             ],
@@ -224,19 +242,37 @@ const Home = () => {
             color: COLORS.purple,
             expenses: [
                 {
-                    id: 15,
-                    title: "Gym Membership",
-                    description: "Monthly Fee",
+                    id: 17,
+                    title: "",
+                    description: "",
                     location: "ByProgrammers' Gym",
-                    total: 45.00,
+                    total: 0.00,
                     status: confirmStatus,
                 },
                 {
-                    id: 16,
-                    title: "Gloves",
-                    description: "Gym Equipment",
+                    id: 18,
+                    title: "",
+                    description: "",
                     location: "ByProgrammers' Gym",
-                    total: 15.00,
+                    total: 0.00,
+                    status: confirmStatus,
+                },
+
+                {
+                    id: 19,
+                    title: "",
+                    description: "",
+                    location: "ByProgrammers' Gym",
+                    total: 0.00,
+                    status: confirmStatus,
+                },
+
+                {
+                    id: 20,
+                    title: "",
+                    description: "",
+                    location: "ByProgrammers' Gym",
+                    total: 0.00,
                     status: confirmStatus,
                 },
             ],
@@ -248,19 +284,37 @@ const Home = () => {
             color: COLORS.red,
             expenses: [
                 {
-                    id: 17,
-                    title: "T-Shirt",
-                    description: "Plain Color T-Shirt",
+                    id: 21,
+                    title: "",
+                    description: "",
                     location: "ByProgrammers' Mall",
-                    total: 20.00,
+                    total: 0.00,
                     status: confirmStatus,
                 },
                 {
-                    id: 18,
-                    title: "Jeans",
-                    description: "Blue Jeans",
+                    id: 22,
+                    title: "",
+                    description: "",
                     location: "ByProgrammers' Mall",
-                    total: 50.00,
+                    total: 0.00,
+                    status: confirmStatus,
+                },
+
+                {
+                    id: 23,
+                    title: "",
+                    description: "",
+                    location: "ByProgrammers' Mall",
+                    total: 0.00,
+                    status: confirmStatus,
+                },
+
+                {
+                    id: 24,
+                    title: "",
+                    description: "",
+                    location: "ByProgrammers' Mall",
+                    total: 0.00,
                     status: confirmStatus,
                 },
             ],
@@ -271,19 +325,37 @@ const Home = () => {
             icon: icons.chart,
             color: COLORS.purple,
             expenses: [{
-                    id: 19,
-                    title: "Patlıcan",
-                    description: "Patlıcan",
+                    id: 25,
+                    title: "",
+                    description: "",
                     location: "Eryaman",
-                    total: 5.00,
+                    total: 0.00,
                     status: confirmStatus,
                 },
                 {
-                    id: 20,
-                    title: "Kabak",
-                    description: "Kabak",
+                    id: 26,
+                    title: "",
+                    description: "",
                     location: "Eryaman",
-                    total: 6.00,
+                    total: 0.00,
+                    status: confirmStatus,
+                },
+
+                {
+                    id: 27,
+                    title: "",
+                    description: "",
+                    location: "Eryaman",
+                    total: 0.00,
+                    status: confirmStatus,
+                },
+
+                {
+                    id: 28,
+                    title: "",
+                    description: "",
+                    location: "Eryaman",
+                    total: 0.00,
                     status: confirmStatus,
                 },
             ],
@@ -295,19 +367,37 @@ const Home = () => {
             color: COLORS.black,
             expenses: [
                 {
-                    id: 21,
-                    title: "Boyama",
-                    description: "Boyama",
+                    id: 29,
+                    title: "",
+                    description: "",
                     location: "Çankaya",
-                    total: 15.00,
+                    total: 0.00,
                     status: confirmStatus,
                 },
                 {
-                    id: 22,
-                    title: "Dans",
-                    description: "Dans",
+                    id: 30,
+                    title: "",
+                    description: "",
                     location: "Koru",
-                    total: 60.00,
+                    total: 0.00,
+                    status: confirmStatus,
+                },
+
+                {
+                    id: 31,
+                    title: "",
+                    description: "",
+                    location: "Çankaya",
+                    total: 0.00,
+                    status: confirmStatus,
+                },
+
+                {
+                    id: 32,
+                    title: "",
+                    description: "",
+                    location: "Koru",
+                    total: 0.00,
                     status: confirmStatus,
                 },
 
@@ -598,7 +688,7 @@ const Home = () => {
                         backgroundColor: selectedCategory.color,
                     }}
                 >
-                    <Text style={{ color: COLORS.white, ...FONTS.body3 }}>{parseFloat(item.total).toFixed(2)} TL</Text>
+                    <Text style={{ color: COLORS.white, ...FONTS.body3 }}>{item.total.toFixed(2)} TL</Text>
                 </View>
             </View>
         )
@@ -635,11 +725,12 @@ const Home = () => {
         let chartData = categories.map((item) => {
             let confirmExpenses = item.expenses.filter(a => a.status == "C")
             var total = confirmExpenses.reduce((a, b) => a + (b.total || 0), 0)
+            var realExpenses = item.expenses.filter(a => a.total > 0.00)
 
             return {
                 name: item.name,
                 y: total,
-                expenseCount: confirmExpenses.length,
+                expenseCount: realExpenses.length,
                 color: item.color,
                 id: item.id
             }
@@ -786,8 +877,15 @@ const Home = () => {
         datanew = datanew + MinusNumber;
         db.ref('/Cuzdan/Butce').set(datanew);
 
+        for(var i=3; i>0 ; i--)
+        {
+                selectedCategory.expenses[i].title = selectedCategory.expenses[i-1].title;
+                //selectedCategory.expenses[i].description = selectedCategory.expenses[i-1].description;
+                selectedCategory.expenses[i].total = selectedCategory.expenses[i-1].total;
+        }
+
         categories[id-1].expenses[0].title = text;
-        categories[id-1].expenses[0].total = number;
+        categories[id-1].expenses[0].total = parseInt(number,10);
 
         var dbRef = db.ref('/Kategoriler/');
         var listRef = dbRef.push();
@@ -856,23 +954,16 @@ const Home = () => {
                         <View style={styles.buttonContainer}>
                             <Button title="Gider Ekle" color= "#d24dff" onPress={showDialog} />
                             <Dialog.Container visible={visible}>
-                                <Dialog.Title> Ekle</Dialog.Title>
+                                <Dialog.Title> Ürün Ekle</Dialog.Title>
                                 <Dialog.Input
-                                    placeholder="sa"//{selectedCategory.name}
-                                    keyboardType="default"
-                                    style={styles.input}
-                                    onChangeText={onChangeText}>
-                                </Dialog.Input>
-                                <Dialog.Input
-                                    placeholder="Açıklama"
+                                    placeholder="Ürün Açıklaması"
                                     keyboardType="default"
                                     style={styles.input}
                                     onChangeText={onChangeText}
-                                    Text={text}
-                                    >
+                                    Text={text}>
                                 </Dialog.Input>
                                 <Dialog.Input
-                                    placeholder="Ödeme"
+                                    placeholder="Ödeme Tutarı"
                                     keyboardType="numeric"
                                     style={styles.input}
                                     onChangeText={onChangeNumber}
